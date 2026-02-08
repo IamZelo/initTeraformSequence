@@ -10,6 +10,9 @@ public class Robot : MonoBehaviour
     [SerializeField] private float moveSpeed = 10f;
     [SerializeField] private float rotateSpeed = 180f;
 
+
+    [SerializeField] private GameObject buildingPrefab;
+
     public IEnumerator Move(float steps)
     {
         Vector3 startPos = transform.position;
@@ -45,4 +48,25 @@ public class Robot : MonoBehaviour
         }
         transform.rotation = targetRot;
     }
+
+    public IEnumerator Place()
+    {
+        Vector3 position = transform.position;
+
+        Vector2Int gridPos = grid.GetGridPos(position);
+        if(grid.IsCellEmpty(gridPos))
+        {
+            GameObject newBuilding = Instantiate(buildingPrefab, new Vector3(position.x, 0, position.z), Quaternion.identity);
+            grid.RegisterObject(gridPos, newBuilding);
+        }
+        else
+        {
+            Debug.LogWarning("Cannot place building at " + gridPos + " - Cell is occupied!");
+        }
+
+
+        yield return null;
+    }
+
+    
 }

@@ -5,6 +5,7 @@ using System.Collections;
 public class Testing : MonoBehaviour
 {
     public Robot rb;
+    public ObjectPlacer op;
 
     void Start()
     {
@@ -22,14 +23,32 @@ public class Testing : MonoBehaviour
     IEnumerator RunSequence()
     {
     
-        yield return StartCoroutine(rb.Move(2));
+        yield return StartCoroutine(rb.Turn(180));
+        yield return StartCoroutine(rb.Move(1));
+        yield return StartCoroutine(rb.Place());
 
         yield return new WaitForSeconds(1f);
 
-        yield return StartCoroutine(rb.Turn(-90));
 
-   
+
+        yield return StartCoroutine(rb.Turn(90));
         yield return StartCoroutine(rb.Move(2));
+        yield return StartCoroutine(rb.Place());
+
+        yield return new WaitForSeconds(1f);
+        yield return StartCoroutine(rb.Turn(90));
+        yield return StartCoroutine(rb.Move(1));
+        yield return StartCoroutine(rb.Place());
+        yield return new WaitForSeconds(1f);
+        yield return StartCoroutine(rb.Move(2));
+
+        yield return StartCoroutine(rb.Turn(180));
+
+
+
+
+
+
 
     }
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class GridSystem : MonoBehaviour
 {
     [Header("Settings")]
-    [SerializeField] private float cellSize = 10f; // Size of one grid square (SimCity style)
+    [SerializeField] private float cellSize = 24f; // Size of one grid square (SimCity style)
     [SerializeField] private GameObject plane;
 
     // Store placed objects using grid coordinates as the key
@@ -13,20 +13,42 @@ public class GridSystem : MonoBehaviour
     // Convert World Position -> Grid Coordinate (e.g., 15.5 -> 1)
     public Vector2Int GetGridPos(Vector3 worldPosition)
     {
-        int x = Mathf.FloorToInt(worldPosition.x / cellSize);
-        int z = Mathf.FloorToInt(worldPosition.z / cellSize);
-        return new Vector2Int(x, z);
+        // 1. Calculate the actual size of the plane in world units
+        // Unity's default plane is 10x10, so we multiply by localScale
+        float worldWidth = 10f * plane.transform.localScale.x;
+        float worldDepth = 10f * plane.transform.localScale.z;
+
+        // 2. Find the Bottom-Left corner (The Grid's "Zero" point)
+        // Since the pivot is in the center, we subtract half the size from the position
+        float startX = plane.transform.position.x - (worldWidth / 2f);
+        float startZ = plane.transform.position.z - (worldDepth / 2f);
+
+        // 3. Calculate how far the object is from that corner
+        float relativeX = worldPosition.x - startX;
+        float relativeZ = worldPosition.z - startZ;
+
+        // 4. Divide by your cell size (24) to get the index
+        int x = Mathf.FloorToInt(relativeX / cellSize);
+        int y = Mathf.FloorToInt(relativeZ / cellSize);
+
+        return new Vector2Int(x, y);
     }
     public float CellSize => cellSize;
 
     // Convert Grid Coordinate -> World Position (Centered)
     public Vector3 GetWorldPos(Vector2Int gridPos)
     {
-        float x = gridPos.x * cellSize;
-        float z = gridPos.y * cellSize;
+        float worldWidth = 10f * plane.transform.localScale.x;
+        float worldDepth = 10f * plane.transform.localScale.z;
 
-        // Add half size to center the object in the square
-        return new Vector3(x + (cellSize * 0.5f), 0, z + (cellSize * 0.5f));
+        float startX = plane.transform.position.x - (worldWidth / 2f);
+        float startZ = plane.transform.position.z - (worldDepth / 2f);
+
+        // Start + (Index * 24) + (Half Cell Size to center it)
+        float x = startX + (gridPos.x * cellSize) + (cellSize * 0.5f);
+        float z = startZ + (gridPos.y * cellSize) + (cellSize * 0.5f);
+
+        return new Vector3(x, plane.transform.position.y, z);
     }
 
     public bool IsCellEmpty(Vector2Int gridPos)
@@ -45,13 +67,13 @@ public class GridSystem : MonoBehaviour
     // Debug visualization to see the grid in the Scene view
     private void OnDrawGizmos()
     {
-        float offset = 0.2f;
+        float offset = 0.4f;
         if(cellSize < 1f)
         {
             return;
         }
 
-        Gizmos.color = Color.green;
+        Gizmos.color = Color.red;
 
         int planeSizeX = Mathf.FloorToInt(plane.transform.localScale.x * 10f / 2);
         int planeSizeZ = Mathf.FloorToInt(plane.transform.localScale.z * 10f / 2);
