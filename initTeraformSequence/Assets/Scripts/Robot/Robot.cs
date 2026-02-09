@@ -5,7 +5,7 @@ using System;
 public class Robot : MonoBehaviour
 {
     [SerializeField] private GridSystem grid;
-
+    [SerializeField] private ObjectPlacer objectPlacer;
     [Header("Movement Settings")]
     [SerializeField] private float moveSpeed = 10f;
     [SerializeField] private float rotateSpeed = 180f;
@@ -19,10 +19,18 @@ public class Robot : MonoBehaviour
         Vector3 targetPos = transform.position + (transform.forward * steps * grid.CellSize);
         Debug.Log($"Robot starts moving {steps} steps. {startPos} and {targetPos}");
 
+        if (!grid.IsWorldPosValid(targetPos))
+        {
+            Debug.LogWarning("Target position is out of bounds! Movement cancelled.");
+            yield break; // Exit the coroutine early
+        }
+
 
         float distance = Vector3.Distance(startPos, targetPos);
         float duration = distance / moveSpeed;
         float elapsed = 0f;
+
+        objectPlacer.CursorShow(targetPos);
 
         while (elapsed < duration)
         {
@@ -31,6 +39,7 @@ public class Robot : MonoBehaviour
             yield return null; // Wait for next frame
         }
         transform.position = targetPos; // Ensure we land exactly on the spot
+        objectPlacer.CursorHide();
     }
     public IEnumerator Turn(float angle)
     {
@@ -68,5 +77,48 @@ public class Robot : MonoBehaviour
         yield return null;
     }
 
-    
+
+    public IEnumerator Destroy()
+    {
+        Vector3 position = transform.position;
+
+        Vector2Int gridPos = grid.GetGridPos(position);
+        if (!grid.IsCellEmpty(gridPos))
+        {
+            GameObject gameObject = grid.RemoveObject(gridPos);
+
+            Debug.Log("Remove object at " + gridPos + " " + gameObject.name);
+            Destroy(gameObject);
+        }
+        else
+        {
+            Debug.LogWarning("No Game object at " + gridPos + " - Cell is empty");
+        }
+
+
+        yield return null;
+    }
+
+
+    public IEnumerator Interact()
+    {
+        Vector3 position = transform.position;
+
+        Vector2Int gridPos = grid.GetGridPos(position);
+        if (!grid.IsCellEmpty(gridPos))
+        {
+            GameObject gameObject = grid.GetObject(gridPos);
+
+            Debug.Log("Object at " + gridPos + " " + gameObject.name);
+        }
+        else
+        {
+            Debug.LogWarning("No Game object at " + gridPos + " - Cell is empty");
+        }
+
+
+        yield return null;
+    }
+
+
 }

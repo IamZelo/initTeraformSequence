@@ -14,30 +14,46 @@ public class ObjectPlacer : MonoBehaviour
         // Instantiate the cursor highlight
         if (cursorHighlightPrefab != null)
         {
-            cursorHighlight = Instantiate(cursorHighlightPrefab, Vector3.zero, Quaternion.identity);
-            cursorHighlight.SetActive(true);
+            cursorHighlight = Instantiate(cursorHighlightPrefab, new Vector3(0, 1, 0), Quaternion.identity);
+            cursorHighlight.SetActive(false);
         }
     }
 
-    private void Update()
+    //private void Update()
+    //{
+    //    // 1. Get the position of THIS object (the builder/player/ghost)
+    //    Vector3 currentPos = transform.position;
+
+    //    // 2. Calculate the grid position based on where THIS object is standing
+
+    //    Vector2Int gridPos = gridSystem.GetGridPos(currentPos);
+    //    Vector3 worldCenter = gridSystem.GetWorldPos(gridPos);
+
+    //    // 3. Move the highlight cursor to the snapped position
+    //    if (cursorHighlight != null)
+    //    {
+    //        cursorHighlight.transform.position = worldCenter;
+    //        cursorHighlight.SetActive(true);
+    //    }
+
+    //}
+
+    public void CursorShow(Vector3 pos)
     {
-        // 1. Get the position of THIS object (the builder/player/ghost)
-        Vector3 currentPos = transform.position;
-        Debug.Log("x " + currentPos.x + " z  " + currentPos.z);
-
-
-        // 2. Calculate the grid position based on where THIS object is standing
-        Vector2Int gridPos = gridSystem.GetGridPos(currentPos);
-        Debug.Log("grid pos" + gridPos);
+        Vector2Int gridPos = gridSystem.GetGridPos(pos);
         Vector3 worldCenter = gridSystem.GetWorldPos(gridPos);
-        Debug.Log("x " + worldCenter.x + " z  " + worldCenter.z);
-
-        // 3. Move the highlight cursor to the snapped position
         if (cursorHighlight != null)
         {
-            cursorHighlight.transform.position = worldCenter;
+            cursorHighlight.transform.position = new Vector3(worldCenter.x, worldCenter.y + 1, worldCenter.z);
             cursorHighlight.SetActive(true);
         }
-
     }
+
+    public void CursorHide() {         
+        if (cursorHighlight != null)
+        {
+            cursorHighlight.SetActive(false);
+        }
+    }
+
 }

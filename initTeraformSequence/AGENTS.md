@@ -2,7 +2,7 @@
 - Project name: initTeraformSequence
 - Unity version: Unity 6000.3.2f1
 - Active game object:
-  - Name: GameObject
+  - Name: SP_Rock07
   - Tag: Untagged
   - Layer: Default
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->

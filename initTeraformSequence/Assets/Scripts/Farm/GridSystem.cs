@@ -33,6 +33,26 @@ public class GridSystem : MonoBehaviour
 
         return new Vector2Int(x, y);
     }
+    public bool IsWorldPosValid(Vector3 worldPosition)
+    {
+        // 1. Get the current grid index for this position
+        Vector2Int gridPos = GetGridPos(worldPosition);
+
+        // 2. Calculate the maximum number of cells that fit on this plane
+        // (Plane Size / Cell Size) = Total Cells
+        float worldWidth = 10f * plane.transform.localScale.x;
+        float worldDepth = 10f * plane.transform.localScale.z;
+
+        int maxGridX = Mathf.FloorToInt(worldWidth / cellSize);
+        int maxGridY = Mathf.FloorToInt(worldDepth / cellSize);
+
+        // 3. Check if the index is within bounds [0 to Max-1]
+        bool insideX = gridPos.x >= 0 && gridPos.x < maxGridX;
+        bool insideY = gridPos.y >= 0 && gridPos.y < maxGridY;
+
+        return insideX && insideY;
+    }
+
     public float CellSize => cellSize;
 
     // Convert Grid Coordinate -> World Position (Centered)
@@ -63,6 +83,23 @@ public class GridSystem : MonoBehaviour
             placedObjects.Add(gridPos, obj);
         }
     }
+
+    public GameObject GetObject(Vector2Int gridPos)
+    { 
+        return placedObjects.GetValueOrDefault(gridPos);
+    }
+
+
+    public GameObject RemoveObject(Vector2Int gridPos)
+    {
+        if(placedObjects.TryGetValue(gridPos, out GameObject obj))
+        {
+            placedObjects.Remove(gridPos);
+            return obj;
+        }
+        return null;
+    }
+
 
     // Debug visualization to see the grid in the Scene view
     private void OnDrawGizmos()

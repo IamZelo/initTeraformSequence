@@ -5,8 +5,6 @@ using System.Collections;
 public class Testing : MonoBehaviour
 {
     public Robot rb;
-    public ObjectPlacer op;
-
     void Start()
     {
 
@@ -44,11 +42,11 @@ public class Testing : MonoBehaviour
 
         yield return StartCoroutine(rb.Turn(180));
 
-
-
-
-
-
+        yield return new WaitForSeconds(1f);
+        yield return StartCoroutine(rb.Move(2));
+        yield return StartCoroutine(rb.Destroy());
+        yield return new WaitForSeconds(1f);
+        yield return StartCoroutine(rb.Move(2));
 
     }
 }
