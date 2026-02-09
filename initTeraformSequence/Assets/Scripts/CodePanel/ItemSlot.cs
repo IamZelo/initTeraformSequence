@@ -6,6 +6,9 @@ public class ItemSlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
 {
     private CanvasGroup canvasGroup;
     private RectTransform rectTransform;
+
+    internal CanvasGroup CanvasGroup => canvasGroup;
+
     private void Awake()
     {
         canvasGroup = GetComponent<CanvasGroup>();
@@ -19,6 +22,7 @@ public class ItemSlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
         BlockView dragged = eventData.pointerDrag.GetComponent<BlockView>();
         BlockView parent = transform.parent.GetComponent<BlockView>();
 
+        canvasGroup.blocksRaycasts = false;
         
         eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition = transform.parent.GetComponent<RectTransform>().anchoredPosition + new Vector2(0, -rectTransform.rect.height);
 
@@ -29,6 +33,7 @@ public class ItemSlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
         if (eventData.pointerDrag != null)
             canvasGroup.alpha = 0.5f;
     }
+
     public void OnPointerExit(PointerEventData eventData)
     {
         canvasGroup.alpha = 0f;

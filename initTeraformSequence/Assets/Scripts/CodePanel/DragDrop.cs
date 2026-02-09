@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -35,17 +36,17 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         Vector2 delta = eventData.delta;
         rectTransform.anchoredPosition += delta;
 
-        //MoveFollowers(view.NextView, delta);
+        MoveFollowers(view.NextView);
     }
 
-    //void MoveFollowers(BlockView follower, Vector2 delta)
-    //{
-    //    int count = 1;
-    //    while (follower != null)
-    //    {
-    //        follower.GetComponent<RectTransform>().anchoredPosition = rectTransform.anchoredPosition + (new Vector2(0, -rectTransform.rect.height) * count);
-    //        count++;
-    //        follower = follower.NextView;
-    //    }
-    //}
+    void MoveFollowers(BlockView follower)
+    {
+        int count = 1;
+        while (follower != null)
+        {
+            follower.GetComponent<RectTransform>().anchoredPosition = rectTransform.anchoredPosition + (new Vector2(0, -rectTransform.rect.height) * count);
+            count++;
+            follower = follower.NextView;
+        }
+    }
 }

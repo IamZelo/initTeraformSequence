@@ -1,20 +1,37 @@
+using TMPro;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class BlockView : MonoBehaviour
 {
     [SerializeField] NodeType type;
+    [SerializeField] TMP_InputField inputField;
 
     ScriptNode node;
     BlockView nextView;
     BlockView prevView;
+    ItemSlot slot;
 
     internal ScriptNode Node => node;
     internal BlockView NextView => nextView;
+    internal BlockView PrevView => prevView;
 
 
     private void Awake()
     {
         node = new ScriptNode(type);    
+        slot = GetComponentInChildren<ItemSlot>();
+    }
+    void Start()
+    {
+        if (inputField != null)
+            inputField.onEndEdit.AddListener(OnValueChanged);
+    }
+
+    void OnValueChanged(string value)
+    {
+        if (int.TryParse(value, out int v))
+            node.SetInt(v);
     }
     internal void LinkNext(BlockView next)
     {
@@ -28,7 +45,7 @@ public class BlockView : MonoBehaviour
     internal void Unlink()
     {
         if (prevView == null) return;
-
+        prevView.slot.CanvasGroup.blocksRaycasts = true;
         prevView.nextView = null;
         prevView.node.SetOutput(FlowPort.Next, null);
 

@@ -20,6 +20,8 @@ class ScriptNode
     private NodeType type;
     private Dictionary<FlowPort, ScriptNode> outputs;
 
+    private int value;
+
     internal ScriptNode(NodeType type)
     {
         this.type = type;
@@ -36,5 +38,15 @@ class ScriptNode
     internal ScriptNode GetOutput(FlowPort port)
     {
         return outputs.TryGetValue(port, out var n) ? n : null;
+    }
+
+    internal void SetInt(int value)
+    {
+        this.value = value;
+    }
+
+    internal int GetInt()
+    {
+        return value;
     }
 }
