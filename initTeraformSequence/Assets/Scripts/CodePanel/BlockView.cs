@@ -19,9 +19,15 @@ public class BlockView : MonoBehaviour
 
     private void Awake()
     {
-        node = new ScriptNode(type);    
+        InitializeBlock();
+    }
+
+    internal void InitializeBlock()
+    {
+        node = new ScriptNode(type);
         slot = GetComponentInChildren<ItemSlot>();
     }
+
     void Start()
     {
         if (inputField != null)

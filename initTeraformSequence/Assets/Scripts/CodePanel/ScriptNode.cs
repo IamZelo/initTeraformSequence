@@ -5,7 +5,9 @@ enum NodeType
 {
     Start,
     Move,
-    Rotate
+    Rotate,
+    Plant,
+    Harvest
 }
 
 enum FlowPort

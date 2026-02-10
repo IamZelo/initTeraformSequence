@@ -33,7 +33,6 @@ public class ScriptRunner : MonoBehaviour
             case NodeType.Move:
                 {
                     int steps = node.GetInt();
-                    Debug.Log("Move " + steps + " steps");
                     yield return rb.Move(steps);
                     break;
                 }
@@ -41,8 +40,19 @@ public class ScriptRunner : MonoBehaviour
             case NodeType.Rotate:
                 {
                     int angle = node.GetInt();
-                    Debug.Log("Rotate " + angle + " degrees");
                     yield return rb.Turn(angle);
+                    break;
+                }
+            case NodeType.Plant:
+                {
+                    yield return rb.Place();
+                    yield return new WaitForSeconds(1f);
+                    break;
+                }
+            case NodeType.Harvest:
+                {
+                    yield return rb.Destroy();
+                    yield return new WaitForSeconds(1f);
                     break;
                 }
         }
