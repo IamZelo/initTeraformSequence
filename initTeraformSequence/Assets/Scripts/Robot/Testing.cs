@@ -10,7 +10,7 @@ public class Testing : MonoBehaviour
 
         if (rb != null)
         {
-            StartCoroutine(RunSequence());
+            //StartCoroutine(RunSequence());
 
         }
         else
