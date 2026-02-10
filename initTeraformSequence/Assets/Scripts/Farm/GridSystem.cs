@@ -7,8 +7,56 @@ public class GridSystem : MonoBehaviour
     [SerializeField] private float cellSize = 24f; // Size of one grid square (SimCity style)
     [SerializeField] private GameObject plane;
 
+    [Header("Pre-Start Settings")]
+    [SerializeField] private GameObject plantPrefab; 
+    [SerializeField] private int startingPlantCount = 5;
+
     // Store placed objects using grid coordinates as the key
     private Dictionary<Vector2Int, GameObject> placedObjects = new Dictionary<Vector2Int, GameObject>();
+
+
+    private void SpawnStartingPlants()
+    {
+        if (plantPrefab == null || startingPlantCount <= 0) return;
+
+        // 1. Calculate Grid Dimensions
+        float worldWidth = 10f * plane.transform.localScale.x;
+        float worldDepth = 10f * plane.transform.localScale.z;
+
+        int maxGridX = Mathf.FloorToInt(worldWidth / cellSize);
+        int maxGridY = Mathf.FloorToInt(worldDepth / cellSize);
+
+        int spawnedCount = 0;
+        int attempts = 0;
+
+        // 2. Loop until we spawn enough plants (or give up after too many tries)
+        while (spawnedCount < startingPlantCount && attempts < 100)
+        {
+            attempts++;
+
+            // Pick a random spot
+            int randX = Random.Range(0, maxGridX);
+            int randY = Random.Range(0, maxGridY);
+            Vector2Int randomPos = new Vector2Int(randX, randY);
+
+            // 3. Only place if the spot is empty
+            if (IsCellEmpty(randomPos))
+            {
+                // Calculate world position
+                Vector3 worldPos = GetWorldPos(randomPos);
+
+                // Instantiate (Adjust Y slightly if pivot is at bottom)
+                GameObject newPlant = Instantiate(plantPrefab, worldPos, Quaternion.identity);
+
+                // Important: Add to the dictionary so the robot knows it's there!
+                RegisterObject(randomPos, newPlant);
+
+                spawnedCount++;
+            }
+        }
+    }
+
+
 
     // Convert World Position -> Grid Coordinate (e.g., 15.5 -> 1)
     public Vector2Int GetGridPos(Vector3 worldPosition)

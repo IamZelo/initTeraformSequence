@@ -2,7 +2,7 @@
 - Project name: initTeraformSequence
 - Unity version: Unity 6000.3.2f1
 - Active game object:
-  - Name: SP_Rock07
+  - Name: dron_3_body_root
   - Tag: Untagged
   - Layer: Default
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
