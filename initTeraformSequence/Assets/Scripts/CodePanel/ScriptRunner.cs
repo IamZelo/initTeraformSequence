@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ScriptRunner : MonoBehaviour
@@ -20,11 +21,11 @@ public class ScriptRunner : MonoBehaviour
     {
         StopAllCoroutines();
         StartCoroutine(Run(nodeView.Node));
-        currentEnergy = totalEnergy;
     }
 
     IEnumerator Run(ScriptNode start)
     {
+        currentEnergy = totalEnergy;
         ScriptNode current = start;
         if(currentEnergy<=0)
         {
@@ -79,5 +80,10 @@ public class ScriptRunner : MonoBehaviour
                 }
         }
         SetFill((float)currentEnergy / totalEnergy);
+    }
+
+    public void ReloadLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

@@ -6,20 +6,12 @@ public class NodeSpawner : MonoBehaviour, IPointerExitHandler
     [SerializeField] BlockView prefab;
     [SerializeField] RectTransform parentForSpawned;
 
-    bool spawnedThisDrag;
-    private void Awake()
-    {
-        //parentForSpawned = GetComponent<RectTransform>();
-    }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         if (eventData.pointerDrag == null)
             return;
-        //if (spawnedThisDrag)
-        //    return;
         SpawnNew();
-        //spawnedThisDrag = true;
     }
 
     void SpawnNew()
@@ -32,9 +24,4 @@ public class NodeSpawner : MonoBehaviour, IPointerExitHandler
         rect.localRotation = Quaternion.identity;
         rect.SetParent(parentForSpawned, true);
     }
-
-    //public void ResetForNextDrag()
-    //{
-    //    spawnedThisDrag = false;
-    //}
 }

@@ -116,7 +116,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DragDrop
   view: {fileID: 0}
-  nodeSpawner: {fileID: 0}
 --- !u!225 &2062397597321603908
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -142,6 +141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BlockView
   type: 0
+  energyCost: 0
   inputField: {fileID: 0}
 --- !u!1 &4514666837788146391
 GameObject:
