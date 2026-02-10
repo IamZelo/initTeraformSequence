@@ -7,9 +7,9 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     private RectTransform rectTransform;
     private CanvasGroup canvasGroup;
 
-    [SerializeField] private Transform plane;
-    [SerializeField] private Canvas canvas;
+    //[SerializeField] private Canvas canvas;
     [SerializeField] private BlockView view;
+    //public NodeSpawner nodeSpawner { get; set; }
 
     private void Awake()
     {
@@ -44,7 +44,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         int count = 1;
         while (follower != null)
         {
-            follower.GetComponent<RectTransform>().anchoredPosition = rectTransform.anchoredPosition + (new Vector2(0, -rectTransform.rect.height) * count);
+            follower.GetComponent<RectTransform>().anchoredPosition = rectTransform.anchoredPosition + (new Vector2(0, -71) * count);
             count++;
             follower = follower.NextView;
         }
