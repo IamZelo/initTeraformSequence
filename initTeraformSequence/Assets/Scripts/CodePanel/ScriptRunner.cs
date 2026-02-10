@@ -1,41 +1,50 @@
+using System.Collections;
 using UnityEngine;
 
-class ScriptRunner : MonoBehaviour
+public class ScriptRunner : MonoBehaviour
 {
     [SerializeField] BlockView nodeView;
+    [SerializeField] Robot rb;
 
     public void RunUI()
     {
-        Run(nodeView.Node);
+        StopAllCoroutines();
+        StartCoroutine(Run(nodeView.Node));
     }
 
-    void Run(ScriptNode start)
+    IEnumerator Run(ScriptNode start)
     {
         ScriptNode current = start;
 
         while (current != null)
         {
-            Execute(current);
+            yield return Execute(current);
             current = current.GetOutput(FlowPort.Next);
         }
     }
 
-    void Execute(ScriptNode node)
+    IEnumerator Execute(ScriptNode node)
     {
         switch (node.Type)
         {
             case NodeType.Start:
-                break;
+                yield break;
 
             case NodeType.Move:
-                int steps = node.GetInt();
-                Debug.Log("Move " + steps + " steps");
-                break;
+                {
+                    int steps = node.GetInt();
+                    Debug.Log("Move " + steps + " steps");
+                    yield return rb.Move(steps);
+                    break;
+                }
 
             case NodeType.Rotate:
-                int angle = node.GetInt();
-                Debug.Log("Rotate " + angle + " degrees");
-                break;
+                {
+                    int angle = node.GetInt();
+                    Debug.Log("Rotate " + angle + " degrees");
+                    yield return rb.Turn(angle);
+                    break;
+                }
         }
     }
 }
