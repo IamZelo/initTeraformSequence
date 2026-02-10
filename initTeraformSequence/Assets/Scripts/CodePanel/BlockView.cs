@@ -5,6 +5,7 @@ using UnityEngine;
 public class BlockView : MonoBehaviour
 {
     [SerializeField] NodeType type;
+    [SerializeField] int energyCost;
     [SerializeField] TMP_InputField inputField;
 
     ScriptNode node;
@@ -24,7 +25,7 @@ public class BlockView : MonoBehaviour
 
     internal void InitializeBlock()
     {
-        node = new ScriptNode(type);
+        node = new ScriptNode(type, energyCost);
         slot = GetComponentInChildren<ItemSlot>();
     }
 

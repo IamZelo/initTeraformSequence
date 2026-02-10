@@ -479,6 +479,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9087633911368191805}
     m_Modifications:
+    - target: {fileID: 780703294416629914, guid: d89778ea0f7ae3d4cb9d5d9308c28388, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1638840696446330712, guid: d89778ea0f7ae3d4cb9d5d9308c28388, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 80.46
+      objectReference: {fileID: 0}
     - target: {fileID: 2762778622250839405, guid: d89778ea0f7ae3d4cb9d5d9308c28388, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -567,6 +575,18 @@ PrefabInstance:
       propertyPath: nodeSpawner
       value: 
       objectReference: {fileID: 1657402083587607391}
+    - target: {fileID: 5911804911308761305, guid: d89778ea0f7ae3d4cb9d5d9308c28388, type: 3}
+      propertyPath: m_text
+      value: "90\u200B"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8152062431604288145, guid: d89778ea0f7ae3d4cb9d5d9308c28388, type: 3}
+      propertyPath: m_Text
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 8623524482324391051, guid: d89778ea0f7ae3d4cb9d5d9308c28388, type: 3}
+      propertyPath: energyCost
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -596,6 +616,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9087633911368191805}
     m_Modifications:
+    - target: {fileID: 1616003856990920216, guid: 8f9f7d37048edd14d800af8d45f8f0c8, type: 3}
+      propertyPath: energyCost
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2822094836442673796, guid: 8f9f7d37048edd14d800af8d45f8f0c8, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1072,6 +1096,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9087633911368191805}
     m_Modifications:
+    - target: {fileID: 823231181748870327, guid: 30333b0fa0e3e7d42a3b983a28aa7fb4, type: 3}
+      propertyPath: energyCost
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2873377492720053917, guid: 30333b0fa0e3e7d42a3b983a28aa7fb4, type: 3}
       propertyPath: m_Name
       value: HarvestNode
@@ -1185,6 +1213,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9087633911368191805}
     m_Modifications:
+    - target: {fileID: 2938042989030696044, guid: f26980bbb858c7c42961b521f11752da, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3700118788278910614, guid: f26980bbb858c7c42961b521f11752da, type: 3}
+      propertyPath: energyCost
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4501709625216241126, guid: f26980bbb858c7c42961b521f11752da, type: 3}
       propertyPath: m_Name
       value: MoveNode
@@ -1272,6 +1308,14 @@ PrefabInstance:
     - target: {fileID: 8574879774859923095, guid: f26980bbb858c7c42961b521f11752da, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8832544658716657070, guid: f26980bbb858c7c42961b521f11752da, type: 3}
+      propertyPath: m_text
+      value: "1\u200B"
+      objectReference: {fileID: 0}
+    - target: {fileID: 9108647746210838063, guid: f26980bbb858c7c42961b521f11752da, type: 3}
+      propertyPath: m_Text
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

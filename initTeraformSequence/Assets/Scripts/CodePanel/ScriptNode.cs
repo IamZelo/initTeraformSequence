@@ -20,17 +20,20 @@ enum FlowPort
 class ScriptNode
 {
     private NodeType type;
+    private int energy;
     private Dictionary<FlowPort, ScriptNode> outputs;
 
     private int value;
 
-    internal ScriptNode(NodeType type)
+    internal ScriptNode(NodeType type, int energy)
     {
         this.type = type;
+        this.energy = energy;
         outputs = new Dictionary<FlowPort, ScriptNode>();
     }
 
     internal NodeType Type => type;
+    internal int Energy => energy;
 
     internal void SetOutput(FlowPort port, ScriptNode node)
     {
