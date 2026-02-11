@@ -22,10 +22,12 @@ public class ScriptRunner : MonoBehaviour
         StopAllCoroutines();
         StartCoroutine(Run(nodeView.Node));
     }
-
-    IEnumerator Run(ScriptNode start)
+    public void Start()
     {
         currentEnergy = totalEnergy;
+    }
+    IEnumerator Run(ScriptNode start)
+    {
         ScriptNode current = start;
         if(currentEnergy<=0)
         {
@@ -52,30 +54,30 @@ public class ScriptRunner : MonoBehaviour
             case NodeType.Move:
                 {
                     int steps = node.GetInt();
-                    currentEnergy -= (node.Energy * steps);
                     yield return rb.Move(steps);
+                    currentEnergy -= (node.Energy * steps);
                     break;
                 }
 
             case NodeType.Rotate:
                 {
                     int angle = node.GetInt();
-                    currentEnergy -= node.Energy;
                     yield return rb.Turn(angle);
+                    currentEnergy -= node.Energy;
                     break;
                 }
             case NodeType.Plant:
                 {
                     yield return rb.Place();
                     currentEnergy -= node.Energy;
-                    yield return new WaitForSeconds(1f);
+                    // yield return new WaitForSeconds(1f);
                     break;
                 }
             case NodeType.Harvest:
                 {
                     yield return rb.Destroy();
                     currentEnergy -= node.Energy;
-                    yield return new WaitForSeconds(1f);
+                    // yield return new WaitForSeconds(1f);
                     break;
                 }
         }

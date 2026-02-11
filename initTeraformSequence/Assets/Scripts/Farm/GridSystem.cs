@@ -9,10 +9,14 @@ public class GridSystem : MonoBehaviour
 
     [Header("Pre-Start Settings")]
     [SerializeField] private GameObject plantPrefab; 
+    [SerializeField] private GameObject obstaclePrefab; 
     [SerializeField] private int startingPlantCount = 5;
+    [SerializeField] private LayerMask obstacleLayerMask;
 
     // Store placed objects using grid coordinates as the key
     private Dictionary<Vector2Int, GameObject> placedObjects = new Dictionary<Vector2Int, GameObject>();
+
+
 
 
     private void SpawnStartingPlants()
@@ -83,10 +87,10 @@ public class GridSystem : MonoBehaviour
     }
     public bool IsWorldPosValid(Vector3 worldPosition)
     {
-        // 1. Get the current grid index for this position
+        // Get the current grid index for this position
         Vector2Int gridPos = GetGridPos(worldPosition);
 
-        // 2. Calculate the maximum number of cells that fit on this plane
+        // Calculate the maximum number of cells that fit on this plane
         // (Plane Size / Cell Size) = Total Cells
         float worldWidth = 10f * plane.transform.localScale.x;
         float worldDepth = 10f * plane.transform.localScale.z;
@@ -94,11 +98,17 @@ public class GridSystem : MonoBehaviour
         int maxGridX = Mathf.FloorToInt(worldWidth / cellSize);
         int maxGridY = Mathf.FloorToInt(worldDepth / cellSize);
 
-        // 3. Check if the index is within bounds [0 to Max-1]
+        // Check if the index is within bounds [0 to Max-1]
         bool insideX = gridPos.x >= 0 && gridPos.x < maxGridX;
         bool insideY = gridPos.y >= 0 && gridPos.y < maxGridY;
 
-        return insideX && insideY;
+        bool isObstacle = !IsCellEmpty(gridPos) && (GetObject(gridPos).layer == 6);
+        if (isObstacle)
+        {
+            Debug.LogWarning($"Position {worldPosition} is blocked by an obstacle!");
+        }
+
+        return insideX && insideY && !isObstacle;
     }
 
     public float CellSize => cellSize;

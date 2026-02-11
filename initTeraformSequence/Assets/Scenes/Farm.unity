@@ -5829,6 +5829,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4bc5d8d963ddfac48b69f5bba53a41c8, type: 3}
+--- !u!1 &782603075 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1818332099616921954, guid: 30a26bac0ab527048a8bfb3201f4cf00, type: 3}
+  m_PrefabInstance: {fileID: 1199291377}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &801133491
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7121,23 +7126,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: RotateNode (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 5911804911308761305, guid: d89778ea0f7ae3d4cb9d5d9308c28388, type: 3}
-      propertyPath: m_text
-      value: "\n\u200B"
-      objectReference: {fileID: 0}
-    - target: {fileID: 8152062431604288145, guid: d89778ea0f7ae3d4cb9d5d9308c28388, type: 3}
-      propertyPath: m_Text
-      value: '
-
-'
-      objectReference: {fileID: 0}
-    - target: {fileID: 8152062431604288145, guid: d89778ea0f7ae3d4cb9d5d9308c28388, type: 3}
-      propertyPath: m_Placeholder
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 3156715309078552306, guid: d89778ea0f7ae3d4cb9d5d9308c28388, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d89778ea0f7ae3d4cb9d5d9308c28388, type: 3}
@@ -8896,7 +8886,11 @@ MonoBehaviour:
   cellSize: 24
   plane: {fileID: 1205950197}
   plantPrefab: {fileID: 4421943498238151561, guid: b250bae400af57640841ef10f79869f7, type: 3}
+  obstaclePrefab: {fileID: 782603075}
   startingPlantCount: 10
+  obstacleLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &1198031953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17282,18 +17276,6 @@ PrefabInstance:
     - target: {fileID: 8574879774859923095, guid: f26980bbb858c7c42961b521f11752da, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8832544658716657070, guid: f26980bbb858c7c42961b521f11752da, type: 3}
-      propertyPath: m_text
-      value: "\n\n\n\u200B"
-      objectReference: {fileID: 0}
-    - target: {fileID: 9108647746210838063, guid: f26980bbb858c7c42961b521f11752da, type: 3}
-      propertyPath: m_Text
-      value: '
-
-
-
-'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
