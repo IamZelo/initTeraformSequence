@@ -7,9 +7,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     private RectTransform rectTransform;
     private CanvasGroup canvasGroup;
 
-    //[SerializeField] private Canvas canvas;
     [SerializeField] private BlockView view;
-    //public NodeSpawner nodeSpawner { get; set; }
 
     private void Awake()
     {

@@ -1,17 +1,21 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class NodeSpawner : MonoBehaviour, IPointerExitHandler
+public class NodeSpawner : MonoBehaviour, IPointerExitHandler, IPointerEnterHandler
 {
     [SerializeField] BlockView prefab;
     [SerializeField] RectTransform parentForSpawned;
 
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        SpawnNew();
+    }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (eventData.pointerDrag == null)
-            return;
         SpawnNew();
+        //if (eventData.pointerDrag == null)
+        //    return;
     }
 
     void SpawnNew()
